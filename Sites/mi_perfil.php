@@ -1,8 +1,10 @@
 <?php include('templates/header.html');   ?>
 
 <body>
+    <h1>Hola</h1>
+
 <?php
-require("../config/conexion.php");
+require("config/conexion.php");
 
 // Obtener información del usuario
 $query = ";";
@@ -10,6 +12,8 @@ $query = ";";
 $result = $db -> prepare($query);
 $result -> execute();
 $dataCollected = $result -> fetchAll();
+
+
 
 // Crear vista materializada
 $createViewQuery = "
@@ -72,5 +76,7 @@ try {
 }
 
 ?>
+<h1>Hola</h1>
+
 
 <?php include('templates/footer.html'); ?>
