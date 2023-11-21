@@ -1,4 +1,5 @@
 <?php include('templates/header.html');   ?>
+<?php include('config/data.php');   ?>
 
 <body>
     <h1>Hola</h1>

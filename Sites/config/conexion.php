@@ -1,4 +1,7 @@
+<?php include('config/data.php');   ?>
+
 <?php
+  
   try {
     #Pide las variables para conectarse a la base de datos.
     require('data.php'); 
