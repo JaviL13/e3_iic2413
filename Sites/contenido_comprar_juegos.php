@@ -1,8 +1,23 @@
 <?php include('templates/header.html');   ?>
+<?php
+$idVideoJuegos = $_GET['id']; 
+
+?>
+<?php
+#Llama a conexión, crea el objeto PDO y obtiene la variable $db
+require("config/conexion.php");
+$query = "SELECT titulo
+          FROM videojuegos
+          WHERE id_videojuego = $idVideoJuegos";
+
+$result = $db2 -> prepare($query);
+$result -> execute();
+$dataCollected = $result -> fetchAll();
+?>
 
 <body>
     <div class='main'>
-        <h1 class='title' style="color:#008080" align="center">Nombre del contenido</h1>
+        <h1 class='title' style="color:#008080" align="center"><?php echo $dataCollected[0]['titulo']?></h1>
         <br>
         <br>
         

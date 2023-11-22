@@ -1,5 +1,3 @@
-<?php include('config/data.php');   ?>
-
 <?php
   
   try {
