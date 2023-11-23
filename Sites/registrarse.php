@@ -49,9 +49,9 @@
             <br>
             <form class="form-signup" role="form" action="registro_validation.php" method="post">
                 <?php echo $msg; ?>
-                <input type="text" name="nombre" placeholder="Nombre " required autofocus>
+                <input type="text" name="nombre" placeholder="Nombre completo" required autofocus>
                 <br>
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Nombre de usuario" required>
                 <br>
                 <input type="email" name="email" placeholder="Correo electrónico" required>
                 <br>

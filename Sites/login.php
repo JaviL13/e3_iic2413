@@ -111,6 +111,8 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
                 <input type="password" name="password" placeholder="contraseña" required >
                 </br>
                 <button type="submit" name="login" class="btn btn-secondary btn-lg"> Iniciar sesión </button>
+                </br>
+                <a href="registrarse.php" class="btn btn-light" style="font-size: 18px;">Registrarse</a>
             </form>
         </div>
         </br>

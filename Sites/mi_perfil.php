@@ -1,6 +1,10 @@
 <?php include('templates/header.html');   ?>
 <?php include('config/data.php');   ?>
 
+<?php
+$idPeli = $_GET['id']; 
+?>
+
 <body>
     <h1 style="color: #008080;">Mi perfil</h1></br></br>
     <!-- ------------------------------------------------------------------- -->

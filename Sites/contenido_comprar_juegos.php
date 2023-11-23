@@ -38,7 +38,7 @@ $videojuegos_genero = $resultVideojuegos_Genero -> fetchAll();
           Generos:
           <?php
             foreach ($videojuegos_genero as $VjG) {
-              echo $VjG[0];
+              echo "$VjG[0]      ";
             }
           ?>
           </br>
@@ -85,7 +85,7 @@ $videojuegos_genero = $resultVideojuegos_Genero -> fetchAll();
               }
             ?>
               
-            </table>
+          </table>
         </div>
         <br>
         <br>
@@ -94,7 +94,7 @@ $videojuegos_genero = $resultVideojuegos_Genero -> fetchAll();
         <div class='container' style="width: 70%">
           <h3>Seleciona un proveedor para comprar</h3>
           <br>
-          <form action='./queries/prodecimiento02.php' method='GET'>
+          <form action='consultas/prodecimiento02.php' method='post'>
             <select class="form-select form-select-lg mb-3" aria-label="Large select example">
               <?php
                 foreach ($videojuegos_proveedor as $VjP) {
@@ -102,7 +102,13 @@ $videojuegos_genero = $resultVideojuegos_Genero -> fetchAll();
                 }
               ?>
             </select>
-            <button type="submit" class="btn btn-primary" onclick="window.location.href='/Sites/historial_compras.php'">Submit</button>
+            <?php
+            // Asumiendo que $peliculas_proveedor es un array asociativo con índices 0, 1 y 2
+            // y que el ID del proveedor está en $PP[2]
+            echo "<input type='hidden' name='proveedor_id' value='$VjP[2]'>";
+            echo "<input type='hidden' name='contenido_id' value='$idVideoJuegos'>";
+            ?>
+            <button type="submit" class="btn btn-primary" value="Buscar">Submit</button>
           </form>
         </div>
 
