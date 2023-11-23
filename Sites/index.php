@@ -10,43 +10,60 @@
             </form>
 
         <h1 align="center">  </h1>
-        <div class='container align-self-center'>
+        
+
+    
+
+    <div class='container'>
             <div class='row'>
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <div class="card h-100" style="width: 15rem; background-color: #008080;" >
-                    <img src="/Sites/imgs/axolote.JPG" class="card-img-top" alt="axolote">
+                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="card h-100" style=" background-color: #008080;" >
                     <div class="card-body">
-                        <h5 class="card-title">Mi perfil</h5>
-                        <p class="card-text">Acaba vas a poder la informacion del usuario, sus suscripciones 
-                            y las horas vistas </p>
-                        <a href="mi_perfil.php" class="btn btn-light">ir a la pagina</a>
+                    <h5 class="card-title">Mi perfil</h5>
+                    <p class="card-text">Acaba vas a poder la informacion del usuario, sus suscripciones 
+                        y las horas vistas </p>
+                    <a href="mi_perfil.php" class="btn btn-light">ir a la pagina</a>
                     </div>
                 </div>
-            </div>
-            </br>
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <div class="card h-100" style="width: 15rem; background-color: #008080;" >
+                </div>
+                </br>
+                
+                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="card h-100" style=" background-color: #008080;" >
                     <div class="card-body">
-                        <h5 class="card-title">Listado de proveedores</h5>
-                        <p class="card-text">Acaba vas a poder encontrar un listado con todos los 
-                            proveedores y poder revisar los contenidos de cada uno de estos </p>
-                        <a href="todos_proveedores.php" class="btn btn-light">ir a la pagina</a>
+                    <h5 class="card-title">Listado de proveedores</h5>
+                    <p class="card-text">Acaba vas a poder encontrar un listado con todos los 
+                        proveedores y poder revisar los contenidos de cada uno de estos </p>
+                    <a href="todos_proveedores.php" class="btn btn-light">ir a la pagina</a>
                     </div>
                 </div>
-            </div>
-            </br>
-            <div class="col-sm-4 sm-3 mb-0">
-                <div class="card h-100" style="width: 15rem; background-color: #008080;" >
+                </div>
+                </br>
+
+                <div class="col-sm-3 sm-3 mb-0">
+                <div class="card h-100" style=" background-color: #008080;" >
                     <div class="card-body">
-                        <h5 class="card-title">productos para comprar</h5>
-                        <p class="card-text">Acaba vas a poder encontrar un listado con todos los 
-                            juegos y peliculas que estan disponibles para la venta</p>
-                        <a href="comprar_contenido.php" class="btn btn-light">ir a la pagina</a>
+                    <h5 class="card-title">productos para comprar</h5>
+                    <p class="card-text">Acaba vas a poder encontrar un listado con todos los 
+                        juegos y peliculas que estan disponibles para la venta</p>
+                    <a href="comprar_contenido.php" class="btn btn-light">ir a la pagina</a>
                     </div>
                 </div>
-            </div>
+                </div>
+                </br>
+
+                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="card h-100" style=" background-color: #008080;" >
+                    <div class="card-body">
+                    <h5 class="card-title">Consultas inestructurada</h5>
+                    <p class="card-text">Acaba vas a poder hacer las consultas inestructuradas a la base de datos </p>
+                    <a href="inestructurada.php" class="btn btn-light">ir a la pagina</a>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
+
 
 
         <div class='container'>

@@ -10,26 +10,22 @@
     echo "$proveedor   ";
     echo $contenido;
 
-    $queryVideojuegos_Proveedor = "SELECT username, password
-                                    FROM usuarios";
-
-    $resultVideojuegos_Proveedor = $db -> prepare($queryVideojuegos_Proveedor);
-    $resultVideojuegos_Proveedor -> execute();
-    $videojuegos_proveedor = $resultVideojuegos_Proveedor -> fetchAll();
     ?>
+    <div class='main'>
+        <h1 class='title' style="color:#008080" align="center">Historial de compras</h1>
+        <div>
+            <p style="text-align:center;">
+                Compras por confirmar 
+            </p>
+        </div>
+        
+        <div>
+            <p style="text-align:center;">
+                Compras confirmadas
+            </p>
+        </div>
 
-    <table>
-        <tr>
-          <th>Proveedores</th>
-          <th>Proveedores</th>
-        </tr>
-        <?php
-          foreach ($videojuegos_proveedor as $VjP) {
-              echo "<tr> <td>$VjP[0]</td> <td>$VjP[1]</td></tr>";
-          }
-        ?>
-              
-    </table>  
+    </div>
 
     
 

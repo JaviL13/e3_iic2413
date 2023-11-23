@@ -30,24 +30,17 @@ $peliculas_genero = $resultPeliculas_Genero -> fetchAll();
         <br>
         
         <!-- -->
-        <p style="text-align:center;">
-          Generos:
-          <?php
-            foreach ($peliculas_genero as $PG) {
-              echo "$PG[0]     ";
-            }
-          ?>
-          </br>
-          Especificaciones del contenido
-          </br>
-          Clasificacion: <?php echo $dataCollected[0]['clasificacion']?>
-          </br>
-          Puntuacion: <?php echo $dataCollected[0]['puntuacion']?>
-          </br>
-          Año: <?php echo $dataCollected[0]['año']?>
-          </br>
-          Duracion: <?php echo $dataCollected[0]['duracion']?>
-        </p>
+        <div class="card" style="width: 18rem; margin-right: 10rem; margin-left: 10rem;" >
+            <div class="card-body">
+                <p class="card-text">
+                  Generos: <?php foreach ($peliculas_genero as $PG) {echo "$PG[0]     ";}?>
+                </p>
+                <p class="card-text">Clasificacion: <?php echo $dataCollected[0]['clasificacion']?></p>
+                <p class="card-text">Puntuacion: <?php echo $dataCollected[0]['puntuacion']?></p>
+                <p class="card-text">Año: <?php echo $dataCollected[0]['año']?></p>
+                <p class="card-text">Duracion: <?php echo $dataCollected[0]['duracion']?></p>
+            </div>
+        </div>
         
         <br>
         <br>
