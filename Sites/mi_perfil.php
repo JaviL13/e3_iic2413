@@ -5,7 +5,19 @@
     <h1 style="color: #008080;">Mi perfil</h1></br></br>
     <!-- ------------------------------------------------------------------- -->
     <!-- Pon aca la logica de las consultas sobre los datos del Usuario -->
+    <?php
+    $idUsuario = $_GET['id'];
+    $idUsuario = intval($idUsuario);
+    echo $idUsuario;
 
+    $query = "SELECT nombre, mail, username, fecha_nacimiento
+              FROM usuarios
+              WHERE id = $idUsuario";
+
+    $result = $db -> prepare($query);
+    $result -> execute();
+    $dataCollected = $result -> fetchAll();
+    ?>
     <!-- ----------------------------------- -->
     <div class='container align-self-center'>
         <h3 style="color: #008080;">informacion del usuario</h3>
