@@ -15,7 +15,20 @@
     $dataCollected = $result->fetchAll(PDO::FETCH_ASSOC);
     $columnHeaders = array_keys($dataCollected[0]);
 
-    echo "$atributos  $nombre_tabla $criterio ";
+    // Crear y escribir en el archivo consulta.txt
+    //$file = fopen('consulta.txt', 'w') or die("No se pudo escribir en el archivo");
+
+    // Escribir encabezados de columnas
+    //fwrite($file, implode("\t", $columnHeaders) . PHP_EOL);
+
+    // Escribir filas de la tabla
+    /*foreach ($dataCollected as $row) {
+        fwrite($file, implode("\t", $row) . PHP_EOL);
+    }*/
+
+    //fclose($file);
+    //echo "Consulta realizada correctamente. Resultados guardados en consultas.txt";
+
     ?>
 
     <div class='container' style="width: 70%">
@@ -46,4 +59,11 @@
         </table>
     </div>
 
+
+
+    <!-- Agrega un botón para descargar el archivo 
+    <div class='container' style="width: 70%">
+        <a href="consultas.txt" download="consultas.txt" class="btn btn-primary">Descargar Resultados</a>
+    </div>
+    -->
 <?php include('../templates/footer.html'); ?>
