@@ -1,21 +1,30 @@
-<?php include('templates/header.html');   ?>
-<?php include('config/conexion.php');   ?>
+<?php 
+include('templates/header.html');
+include('config/conexion.php');   
+session_start();
+?>
 
 <body>
     <h1 style="color: #008080;">Mi perfil</h1></br></br>
     <!-- ------------------------------------------------------------------- -->
     <!-- Pon aca la logica de las consultas sobre los datos del Usuario -->
     <?php
-    $idUsuario = $_GET['id'];
-    $idUsuario = intval($idUsuario);
+    if (isset($_SESSION['id_usuario'])) {
+        $id_usuario = $_SESSION['id_usuario'];
+        echo $id_usuario;
 
-    $query = "SELECT nombre, mail, username, fecha_nacimiento
-              FROM usuarios
-              WHERE id_usuario = $idUsuario;";
+        $query = "SELECT nombre, mail, username, fecha_nacimiento
+                  FROM usuarios
+                  WHERE id_usuario = :id_usuario;";
 
-    $result = $db -> prepare($query);
-    $result -> execute();
-    $dataCollected = $result -> fetchAll();
+        $result = $db -> prepare($query);
+        # Lo siguiente protege el input de la consulta
+        $result -> bindParam(':id_usuario', $id_usuario, PDO::PARAM_STR);
+        $result -> execute();
+        $dataCollected = $result -> fetchAll();
+    } else {
+        echo "No se ha iniciado sesión";
+    }
     ?>
 
     <!-- ----------------------------------- -->
@@ -47,16 +56,18 @@
     <?php
     // Obtener suscripciones activas de videojuegos desde una vista materializada
     // ESTE ES EL UNICO QUE NO FUNCIONA, DEBE SER POR ERROR DE LA VISTA
-    $queryVideojuegos = "SELECT titulo FROM vj_activesubs WHERE id_usuario = $idUsuario;";
-    $resultVideojuegos = $db2->prepare($queryVideojuegos);
-    $resultVideojuegos->execute();
+    $queryVideojuegos = "SELECT titulo FROM vj_activesubs WHERE id_usuario = :idUsuario;";
+    $resultVideojuegos = $db2 -> prepare($queryVideojuegos);
+    $resultVideojuegos -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultVideojuegos -> execute();
     $dataVideojuegosSubs = $resultVideojuegos->fetchAll();
 
     // Obtener suma de horas jugadas en videojuegos desde una vista materializada
-    $queryHorasVideojuegos = "SELECT horas_jugadas FROM horas_juego_usuario WHERE id_usuario = $idUsuario;";
-    $resultHorasVideojuegos = $db2->prepare($queryHorasVideojuegos);
-    $resultHorasVideojuegos->execute();
-    $horasVideojuegos = $resultHorasVideojuegos->fetchColumn();
+    $queryHorasVideojuegos = "SELECT horas_jugadas FROM horas_juego_usuario WHERE id_usuario = :idUsuario;";
+    $resultHorasVideojuegos = $db2 -> prepare($queryHorasVideojuegos);
+    $resultHorasVideojuegos -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultHorasVideojuegos -> execute();
+    $horasVideojuegos = $resultHorasVideojuegos -> fetchColumn();
     ?>
 
     <!-- ----------------------------------- -->
@@ -64,20 +75,23 @@
     <!-- y cantidad de horas vistas -->
     <?php
     // Obtener suscripciones activas de streaming desde una vista materializada
-    $queryStreaming = "SELECT nombre FROM streaming_subs WHERE uid = $idUsuario;";
-    $resultStreaming = $db->prepare($queryStreaming);
-    $resultStreaming->execute();
-    $dataStreaming = $resultStreaming->fetchAll();
+    $queryStreaming = "SELECT nombre FROM streaming_subs WHERE uid = :idUsuario;";
+    $resultStreaming = $db -> prepare($queryStreaming);
+    $resultStreaming -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultStreaming -> execute();
+    $dataStreaming = $resultStreaming -> fetchAll();
     // Obtener suma de horas vistas en películas y series
-    $queryHorasPeliculas = "SELECT horas FROM horas_pelis_user WHERE id_usuario = $idUsuario;";
-    $resultHorasPeliculas = $db->prepare($queryHorasPeliculasSeries);
-    $resultHorasPeliculas->execute();
-    $horasPeliculas = $resultHorasPeliculas->fetchColumn();
+    $queryHorasPeliculas = "SELECT horas FROM horas_pelis_user WHERE id_usuario = :idUsuario;";
+    $resultHorasPeliculas = $db -> prepare($queryHorasPeliculas);
+    $resultHorasPeliculas -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultHorasPeliculas -> execute();
+    $horasPeliculas = $resultHorasPeliculas -> fetchColumn();
 
-    $queryHorasSeries = "SELECT horas FROM horas_series_user WHERE id_usuario = $idUsuario;";
-    $resultHorasSeries = $db->prepare($queryHorasSeries);
-    $resultHorasSeries->execute();
-    $horasSeries = $resultHorasSeries->fetchColumn();
+    $queryHorasSeries = "SELECT horas FROM horas_series_user WHERE id_usuario = :idUsuario;";
+    $resultHorasSeries = $db -> prepare($queryHorasSeries);
+    $resultHorasSeries -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultHorasSeries -> execute();
+    $horasSeries = $resultHorasSeries -> fetchColumn();
     ?>
 
     <!-- ----------------------------------- -->

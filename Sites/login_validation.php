@@ -21,22 +21,20 @@ if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['passw
 
     // Verifica si la contraseña ingresada por el usuario corresponde a la almacenada en la base de datos
     // Parece que la contraseña tiene que ser un hash
-    if ($row && password_verify($user_password, $row['password'])) {
-        $_SESSION['valid'] = true;
-        $_SESSION['timeout'] = time();
-        $_SESSION['username'] = $username;
+    //if ($row && password_verify($user_password, $row['password'])) {
+    //    $_SESSION['valid'] = true;
+    //    $_SESSION['timeout'] = time();
+    //    $_SESSION['username'] = $username;
 
+    if ($row && $user_password == $row['password']) {
         $msg = "Sesión iniciada correctamente";
-        header("Location: ../index.php?msg=$msg");
+        header("Location: index.php?msg=$msg");
     } else {
         $msg = "Nombre de usuario o contraseña incorrectos";
         header("Location: login.php?msg=$msg");
-        //header("Location: Sites/index.php?msg=$msg");
-        
     }
 } else {
     $msg = "Por favor, ingresa tu nombre de usuario y contraseña";
     header("Location: login.php?msg=$msg");
-    //header("Location: Sites/index.php?msg=$msg");
 }
 ?>

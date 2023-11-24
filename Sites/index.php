@@ -1,5 +1,10 @@
 <?php include('templates/header.html');   ?>
 
+<?php
+	session_start();
+	$msg = $_GET['msg']
+?>
+
 <body>
     <div class='main'>
         <h1 class='title' align="center">Blockbuster 2.0</h1>

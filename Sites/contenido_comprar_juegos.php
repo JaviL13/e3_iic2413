@@ -88,7 +88,7 @@ $videojuegos_genero = $resultVideojuegos_Genero -> fetchAll();
         <div class='container' style="width: 70%">
           <h3>Seleciona un proveedor para comprar</h3>
           <br>
-          <form action='consultas/prodecimiento02.php' method='post'>
+          <form action='consultas/compra_juego.php' method='post'>
             <select class="form-select form-select-lg mb-3" aria-label="Large select example">
               <?php
                 foreach ($videojuegos_proveedor as $VjP) {

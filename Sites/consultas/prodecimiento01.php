@@ -7,7 +7,6 @@
     $atributos = $_GET['atributos'];
     $nombre_tabla = $_GET['nombre_tabla'];
     $criterio = $_GET['criterio'];
-
     
     $query = "SELECT $atributos FROM $nombre_tabla WHERE $criterio";
     $result = $db -> prepare($query);

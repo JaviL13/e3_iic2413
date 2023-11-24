@@ -17,46 +17,44 @@
 
     $logFile = 'error_log.txt';
 
-    // Get csv file
-    if (($handle = fopen("./data/pares/filtered_data/activas.csv", "r")) !== FALSE) {
-        $n = 1;
-        $stmt = $db->prepare('INSERT INTO activa (pago_id,id_suscripcion) VALUES (?,?)');   
+if (($handle = fopen("data/pares/filtered_data/activas.csv", "r")) !== FALSE) {
+    $db->beginTransaction();
+    $n = 1;
+    $stmt = $db->prepare('INSERT INTO activa (pago_id, id_suscripcion) VALUES (?, ?)');
 
-        while (($row = fgetcsv($handle)) !== FALSE) {
-            // Skip the header row
-            if ($n > 1) {
-                try {
-                    if (!$stmt->execute($row)) {
-                        $errorMessage = "Error al insertar en la fila $n";
-                        echo $errorMessage;
-                        error_log($errorMessage, 3, $logFile);
-
-                        // Opción b: Omitir la fila actual y continuar con la siguiente
-                        continue;
-                    }
-                } catch (PDOException $ex) {
-                    // Capturar la excepción y manejarla
-                    $errorMessage = "Error en la fila $n: " . $ex->getMessage();
-                    echo $errorMessage;
-                    
-                    // Verificar si el archivo de registro existe antes de escribir en él
-                    if (isset($logFile) && !empty($logFile)) {
-                        error_log($errorMessage, 3, $logFile);
-                    }
-
-                    // Opción b: Omitir la fila actual y continuar con la siguiente
-                    continue;
-                }
+    while (($row = fgetcsv($handle)) !== FALSE) {
+        if ($n > 1) {
+            // Validar que pago_id existe en la tabla pagos antes de intentar insertar
+            $pago_id = $row[0];
+            if (!llaveprimaria($pago_id, $db)) {
+                $errorMessage = "pago_id $pago_id no existe en la tabla pagos, fila $n";
+                error_log($errorMessage, 3, $logFile);
+                $n++;
+                continue;
             }
 
-            // Increment record count
-            $n++;
+
+            try {
+                $stmt->execute($row);
+            } catch (PDOException $ex) {
+                $db->rollBack();
+                $errorMessage = "Error en la fila $n: " . $ex->getMessage();
+                error_log($errorMessage, 3, $logFile);
+                echo $errorMessage;
+                fclose($handle);
+                exit('Error al insertar datos. Ver log para detalles.');
+            }
         }
-
-        // Commit de la transacción
-        $db->commit();
-
-        // Closing the file
-        fclose($handle);
+        $n++;
     }
+
+    $db->commit();
+    fclose($handle);
+}
+
+function llaveprimaria($pago_id, $db) {
+    $stmt = $db->prepare("SELECT COUNT(*) FROM pagos WHERE pago_id = ?");
+    $stmt->execute([$pago_id]);
+    return $stmt->fetchColumn() > 0;
+}
 ?>
