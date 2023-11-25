@@ -22,6 +22,21 @@ session_start();
         $result -> bindParam(':id_usuario', $id_usuario, PDO::PARAM_STR);
         $result -> execute();
         $dataCollected = $result -> fetchAll();
+
+        // Obtener suscripciones activas de videojuegos desde una vista materializada
+        $queryVideojuegos = "SELECT titulo FROM vj_activesubs WHERE id_usuario = :idUsuario;";
+        $resultVideojuegos = $db2 -> prepare($queryVideojuegos);
+        $resultVideojuegos -> bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
+        $resultVideojuegos -> execute();
+        $dataVideojuegosSubs = $resultVideojuegos->fetchAll();
+
+        // Obtener suma de horas jugadas en videojuegos desde una vista materializada
+        $queryHorasVideojuegos = "SELECT horas_jugadas FROM horas_juego_usuario WHERE id_usuario = :idUsuario;";
+        $resultHorasVideojuegos = $db2 -> prepare($queryHorasVideojuegos);
+        $resultHorasVideojuegos -> bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
+        $resultHorasVideojuegos -> execute();
+        $horasVideojuegos = $resultHorasVideojuegos -> fetchColumn();
+
     } else {
         echo "No se ha iniciado sesión";
     }
@@ -53,22 +68,7 @@ session_start();
     <!-- ------------------------------------------------------------------- -->
     <!-- Logica listado suscripciones activas de Videojuegos -->
     <!-- y cantidad de horas jugadas -->
-    <?php
-    // Obtener suscripciones activas de videojuegos desde una vista materializada
-    // ESTE ES EL UNICO QUE NO FUNCIONA, DEBE SER POR ERROR DE LA VISTA
-    $queryVideojuegos = "SELECT titulo FROM vj_activesubs WHERE id_usuario = :idUsuario;";
-    $resultVideojuegos = $db2 -> prepare($queryVideojuegos);
-    $resultVideojuegos -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
-    $resultVideojuegos -> execute();
-    $dataVideojuegosSubs = $resultVideojuegos->fetchAll();
-
-    // Obtener suma de horas jugadas en videojuegos desde una vista materializada
-    $queryHorasVideojuegos = "SELECT horas_jugadas FROM horas_juego_usuario WHERE id_usuario = :idUsuario;";
-    $resultHorasVideojuegos = $db2 -> prepare($queryHorasVideojuegos);
-    $resultHorasVideojuegos -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
-    $resultHorasVideojuegos -> execute();
-    $horasVideojuegos = $resultHorasVideojuegos -> fetchColumn();
-    ?>
+    
 
     <!-- ----------------------------------- -->
     <!-- Logica listado suscripciones activas de streaming -->
@@ -77,19 +77,19 @@ session_start();
     // Obtener suscripciones activas de streaming desde una vista materializada
     $queryStreaming = "SELECT nombre FROM streaming_subs WHERE uid = :idUsuario;";
     $resultStreaming = $db -> prepare($queryStreaming);
-    $resultStreaming -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultStreaming -> bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
     $resultStreaming -> execute();
     $dataStreaming = $resultStreaming -> fetchAll();
     // Obtener suma de horas vistas en películas y series
     $queryHorasPeliculas = "SELECT horas FROM horas_pelis_user WHERE id_usuario = :idUsuario;";
     $resultHorasPeliculas = $db -> prepare($queryHorasPeliculas);
-    $resultHorasPeliculas -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultHorasPeliculas -> bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
     $resultHorasPeliculas -> execute();
     $horasPeliculas = $resultHorasPeliculas -> fetchColumn();
 
     $queryHorasSeries = "SELECT horas FROM horas_series_user WHERE id_usuario = :idUsuario;";
     $resultHorasSeries = $db -> prepare($queryHorasSeries);
-    $resultHorasSeries -> bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    $resultHorasSeries -> bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
     $resultHorasSeries -> execute();
     $horasSeries = $resultHorasSeries -> fetchColumn();
     ?>
@@ -101,32 +101,37 @@ session_start();
             
             <div class="col-sm-6 ">
                 <div class="card">
-                    <?php foreach ($dataVideojuegos as $p) : ?>
+                    
                     <div class="card-header"  style="background-color:#F0F8FF">
                         Videojuegos
                     </div>
                     <div class="card-body">
-                        <p class="card-text"> <?php echo $p[0];?></p>
+                        <?php foreach ($dataVideojuegosSubs as $v) : ?>
+                        <p class="card-text"> <?php echo $v[0];?></p>
+                        <?php endforeach; ?>
                     </div>
                     <div class="card-footer text-muted">
-                        cantidad de horas jugadas
+                        Cantidad de horas jugadas: <?php echo $horasVideojuegos; ?>
                     </div>
-                    <?php endforeach; ?>
+                    
                 </div>
             </div>
                 <div class="col-sm-6">
                     <div class="card">
-                    <?php foreach ($dataCollected as $p) : ?>
                     <div class="card-header"  style="background-color:#F0F8FF">
                         Peliculas
                     </div>
                     <div class="card-body">
+                        <?php foreach ($dataStreaming as $p) : ?>
                         <p class="card-text"> <?php echo $p[0]; ?></p>
+                        <?php endforeach; ?>
                     </div>
                     <div class="card-footer text-muted">
-                        cantidad de horas vistas
+                        cantidad de horas vistas peliculas: <?php echo $horasPeliculas; ?>
+                        </br>
+                        cantidad de horas vistas series: <?php echo $horasSeries; ?>
                     </div>
-                    <?php endforeach; ?>
+                    
                     </div>
                 </div>
             </div>
@@ -137,4 +142,4 @@ session_start();
 </body>
 
 
-<?php include('templates/footer.html'); ?>
+<?php include('templates/footer_proveedores.html'); ?>

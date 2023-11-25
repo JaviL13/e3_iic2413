@@ -21,7 +21,7 @@
     $result1 -> bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $result1 -> execute();
     $CantidadSeries1 = $result1 -> fetchAll();
-    */
+    
     $queryseries1 = "SELECT v.titulo, of.precio, p.id_usuario
                     FROM videojuegos as v, ofrece as of, pagos as p
                     WHERE p.id_usuario = :id_usuario 
@@ -30,7 +30,7 @@
     $result1 = $db2 -> prepare($queryseries1);
     $result1 -> bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $result1 -> execute();
-    $CantidadSeries1 = $result1 -> fetchAll();
+    $CantidadSeries1 = $result1 -> fetchAll();*/
 
     $queryseries = "SELECT v.titulo, p.monto, p.fecha_pago, p.id_usuario
                     FROM pagos as p,videojuegos as v
