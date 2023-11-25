@@ -11,7 +11,7 @@ session_start();
     <?php
     if (isset($_SESSION['id_usuario'])) {
         $id_usuario = $_SESSION['id_usuario'];
-        echo $id_usuario;
+        //echo $id_usuario;
 
         $query = "SELECT nombre, mail, username, fecha_nacimiento
                   FROM usuarios
